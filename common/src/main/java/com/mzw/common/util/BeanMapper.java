@@ -5,33 +5,17 @@ import com.github.dozermapper.core.Mapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BeanMapper {
-    private static Mapper dozer = DozerBeanMapperBuilder.buildDefault();
+    private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
-    private BeanMapper()
-    {
+    public static <T> T map(Object source, Class<T> destinationClass) {
+        return mapper.map(source, destinationClass);
     }
 
-    public static <T> T map(Object source, Class<T> destinationClass)
-    {
-        return dozer.map(source, destinationClass);
-    }
-
-    public static List mapList(Collection sourceList, Class destinationClass)
-    {
-        List destinationList = new ArrayList(16);
-        sourceList.forEach(sourceObject -> {
-            destinationList.add(dozer.map(sourceObject, destinationClass));
-        });
-
-        return destinationList;
-    }
-
-    public static void copy(Object source, Object destinationObject)
-    {
-        dozer.map(source, destinationObject);
+    public static <T, E> List<E> mapList(Collection<T> sourceList, Class<E> destinationClass) {
+        return (List) sourceList.stream().map(item->map(item, destinationClass)).collect(Collectors.toList());
     }
 }
