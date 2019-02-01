@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: jpa
+  profiles:
+    active: dev
+logging:
+  config: classpath:logback-spring.xml
