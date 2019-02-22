@@ -2,3 +2,4 @@ rootProject.name = 'mzw'
 include('common')
 include('jpa')
 include('lock')
+include('rabbitmq')
