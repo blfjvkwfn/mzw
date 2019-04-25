@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven'
 
 group = 'com.mzw'
 version = '0.0.1-SNAPSHOT'
@@ -33,4 +34,19 @@ dependencies {
     implementation('ch.qos.logback:logback-classic:1.2.3')
     implementation('com.github.dozermapper:dozer-core:6.4.1')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task writeNewPom {
+    pom {
+        project {
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/pom.xml")
 }
