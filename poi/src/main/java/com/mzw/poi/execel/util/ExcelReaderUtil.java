@@ -1,8 +1,8 @@
-package com.mzw.poi.util;
+package com.mzw.poi.execel.util;
 
-import com.mzw.poi.reader.Excel2003Reader;
-import com.mzw.poi.reader.Excel2007Reader;
-import com.mzw.poi.reader.IRowReader;
+import com.mzw.poi.execel.reader.Excel2003Reader;
+import com.mzw.poi.execel.reader.Excel2007Reader;
+import com.mzw.poi.execel.reader.IRowReader;
 
 import java.io.InputStream;
 

@@ -1,8 +1,6 @@
-package com.mzw.poi.util;
+package com.mzw.poi.execel.util;
 
-import com.mzw.exception.BeanBindException;
-import com.mzw.exception.ResourceParseException;
-import com.mzw.parser.ResourceParser;
+import com.mzw.poi.execel.reader.IRowReader;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStringsTable;
@@ -31,12 +29,12 @@ public class ExcelUtil extends DefaultHandler {
 	private List<String> rowlist = new ArrayList<String>();
 	private int curRow = 0;
 	private int curCol = 0;
-	private ResourceParser parser;
+	private IRowReader parser;
 	private InputStream inputStream;
 
 	public ExcelUtil() {
 	}
-	public ExcelUtil(ResourceParser parser) {
+	public ExcelUtil(IRowReader parser) {
 		this.parser = parser;
 	}
 	
@@ -96,7 +94,6 @@ public class ExcelUtil extends DefaultHandler {
 	/**
 	 * 读取所有工作簿的入口方法
 	 * 
-	 * @param path
 	 * @throws Exception
 	 */
 	public void process(InputStream inputStream) throws Exception {
@@ -105,8 +102,6 @@ public class ExcelUtil extends DefaultHandler {
 	}
 
 	/**
-	 * @throws ResourceParseException 
-	 * @throws BeanBindException 
 	 * 该方法自动被调用，每读一行调用一次，在方法中写自己的业务逻辑即可
 	 * 
 	 * @param sheetIndex
@@ -118,7 +113,7 @@ public class ExcelUtil extends DefaultHandler {
 	 * @throws Exception
 	 * @throws  
 	 */
-	public void optRow(int sheetIndex, int curRow, List<String> rowList) throws BeanBindException, ResourceParseException {
+	public void optRow(int sheetIndex, int curRow, List<String> rowList) {
 		//parser.addRow(sheetIndex, curRow, rowList);
 	}
 

@@ -1,8 +1,8 @@
-package com.mzw.poi.writer.impl;
+package com.mzw.poi.execel.writer.impl;
 
-import com.mzw.poi.writer.AbstractExcel2007Writer;
+import com.mzw.poi.execel.writer.AbstractExcel2007Writer;
 
-public class Excel2007WriterImpl extends AbstractExcel2007Writer{  
+public class Excel2007WriterImpl extends AbstractExcel2007Writer {
     
     
     /** 
@@ -14,7 +14,7 @@ public class Excel2007WriterImpl extends AbstractExcel2007Writer{
         System.out.println("............................");
         long start = System.currentTimeMillis();
         //构建excel2007写入器  
-        AbstractExcel2007Writer excel07Writer = new Excel2007WriterImpl();  
+        AbstractExcel2007Writer excel07Writer = new Excel2007WriterImpl();
         //调用处理方法  
         excel07Writer.process("F://test07.xlsx");  
         long end = System.currentTimeMillis();

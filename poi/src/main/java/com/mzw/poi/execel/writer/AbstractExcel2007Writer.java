@@ -1,6 +1,6 @@
-package com.mzw.poi.writer;
+package com.mzw.poi.execel.writer;
 
-import com.mzw.poi.encoder.XMLEncoder;
+import com.mzw.poi.execel.encoder.XMLEncoder;
 import org.apache.poi.hssf.util.CellReference;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -184,7 +184,7 @@ public abstract class AbstractExcel2007Writer {
             if (styleIndex != -1)  
                 _out.write(" s=\"" + styleIndex + "\"");  
             _out.write(">");  
-            _out.write("<is><t>"+XMLEncoder.encode(value)+"</t></is>");  
+            _out.write("<is><t>"+ XMLEncoder.encode(value)+"</t></is>");
             _out.write("</c>");  
         }  
   

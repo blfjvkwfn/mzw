@@ -1,4 +1,4 @@
-package com.mzw.poi.encoder;
+package com.mzw.poi.execel.encoder;
 
 public class XMLEncoder {
     

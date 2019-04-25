@@ -1,0 +1,37 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.mzw'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+ext {
+    set('springCloudVersion', 'Greenwich.RELEASE')
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    compile group: 'fr.opensagres.xdocreport', name: 'org.apache.poi.xwpf.converter.pdf', version: '1.0.6'
+    implementation('commons-lang:commons-lang:2.6')
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    compileOnly 'org.projectlombok:lombok'
+
+    compile project(':common')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
