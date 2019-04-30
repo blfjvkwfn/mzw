@@ -7,8 +7,8 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-import org.apache.commons.collections.MapUtils;
 import org.apache.poi.xwpf.converter.core.utils.StringUtils;
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
@@ -62,7 +62,7 @@ public class WordToPDF {
 
     /** 替换段落中内容 */
     private static void paragraphReplace(List<XWPFParagraph> paragraphs, Map<String, String> params) {
-        if (MapUtils.isNotEmpty(params)) {
+        if (Objects.nonNull(params) && !params.isEmpty()) {
             for (XWPFParagraph p : paragraphs){
                 for (XWPFRun r : p.getRuns()){
                     String content = r.getText(r.getTextPosition());

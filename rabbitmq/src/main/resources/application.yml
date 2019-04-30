@@ -1,7 +1,20 @@
 spring:
-  application:
-    name: spring-boot-rabbitmq
   rabbitmq:
-    host: 192.168.15.135
-    username: root
-    password: password
+    addresses: 192.168.88.129
+    port: 5672
+    username: test
+    password: test
+
+mzw:
+  rabbitmq:
+    ttl:
+      queue: ttl_queue
+      message: 10000
+      exchange: ttl_exchange
+      routing:
+        key: ttl_routing_key
+    normal:
+      queue: normal_queue
+      exchange: normal_exchange
+      routing:
+        key: normal_routing_key
