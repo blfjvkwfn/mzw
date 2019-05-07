@@ -8,4 +8,7 @@ include("auth2")
 include("juc")
 include("poi")
 include 'cipher'
+include 'consul'
+include 'pattern'
+include 'log4j'
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -27,6 +27,8 @@ public class Consumer {
     private static final String FAILED_MESSAGE = Constant.FAILED_MESSAGE;
     private static final String RETRY_COUNT_KEY = Constant.RETRY_COUNT_KEY;
     private static final Integer MAX_RETRY_COUNT = Constant.MAX_RETRY_COUNT;
+    private final static String X_DEATH = "x-death";
+    private final static String X_DEATH_COUNT = "count";
 
     public static CountDownLatch countDownLatch;
 
@@ -45,35 +47,32 @@ public class Consumer {
             countDownLatch.countDown();
         }
         QueueMessage queueMessage = JsonUtil.json2Bean(body, QueueMessage.class);
-        Integer retryCount = getRetryCount(message);
+        Long retryCount = getRetryCount(message);
         if (FAILED_MESSAGE.equals(queueMessage.getMessage())) {
-            sendToTTL(body, retryCount);
+            sendToTTL(body, retryCount,message);
         }
     }
 
-    private void sendToTTL(String body, Integer retryCount) {
-        Integer nextRryCount = Objects.isNull(retryCount) ? 1 : ++retryCount;
-        if (nextRryCount > MAX_RETRY_COUNT) {
-            log.info("Reach the maximum number of retries, message:{}", body);
-            return;
+    private void sendToTTL(String body, Long retryCount, Message oldMessage) {
+        if (Objects.isNull(retryCount)) {
+            log.warn("First time send message to delay queue");
+            ttlRabbitTemplate.convertAndSend(body);
+        } else {
+            if (MAX_RETRY_COUNT <= retryCount) {
+                log.error("Number of retries has reached the maximum [{}]", retryCount);
+                return;
+            }
+            log.warn("Send message to delay queue, retry count [{}]", retryCount);
+            ttlRabbitTemplate.convertAndSend(oldMessage);
         }
-
-        log.info("send to ttl queue, message:{}", body);
-
-        Message message = MessageBuilder.withBody(body.getBytes())
-                .setContentType(MessageProperties.CONTENT_TYPE_JSON)
-                .setContentEncoding("UTF-8")
-                .setHeader(RETRY_COUNT_KEY, nextRryCount)
-                .build();
-
-        ttlRabbitTemplate.convertAndSend(message);
     }
 
-    private Integer getRetryCount(Message data) {
-        Object retryCount = data.getMessageProperties().getHeaders().get(RETRY_COUNT_KEY);
-        if (Objects.isNull(retryCount) || !(retryCount instanceof Integer)) {
-            return null;
+    private Long getRetryCount(Message data) {
+        Map<String, Object> headers = data.getMessageProperties().getHeaders();
+        if (headers.containsKey(X_DEATH)) {
+            return (Long) ((Map) ((List) headers.get(X_DEATH)).get(0)).get(X_DEATH_COUNT);
         }
-        return (Integer) retryCount;
+
+        return null;
     }
 }
