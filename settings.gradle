@@ -11,4 +11,5 @@ include 'cipher'
 include 'consul'
 include 'pattern'
 include 'log4j'
+include 'cache'
 
