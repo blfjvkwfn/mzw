@@ -4,6 +4,14 @@ spring:
     port: 5672
     username: test
     password: test
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 10000
+          max-interval: 1200000
+          multiplier: 1
 
 mzw:
   rabbitmq:
