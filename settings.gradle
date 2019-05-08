@@ -12,4 +12,5 @@ include 'consul'
 include 'pattern'
 include 'log4j'
 include 'cache'
+include 'arithmetic'
 
