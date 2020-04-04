@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.1.4.RELEASE'
+        springBootVersion = '2.2.6.RELEASE'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -76,7 +76,7 @@ dependencies {
 }
 
 task createWrapper(type: Wrapper) {
-    gradleVersion = '4.10.2'
+    gradleVersion = '6.2.2'
 }
 
 tasks.withType(JavaCompile) {
