@@ -102,3 +102,6 @@ task writeNewPom {
         }
     }.writeTo("$buildDir/pom.xml")
 }
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

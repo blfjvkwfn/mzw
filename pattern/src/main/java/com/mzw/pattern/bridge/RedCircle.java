@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RedCircle implements DrawApi {
     @Override
-    public void drawCircle(int radius, int x, int y) {
+    public void draw(int radius, int x, int y) {
         log.info("Drawing Circle[ color: red, radius: {}, x: {}, y: {}]", radius, x, y);
     }
 }
